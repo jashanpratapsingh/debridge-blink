@@ -10,27 +10,24 @@ export const GET = (req: Request) => {
 
     const payload : ActionGetResponse = {
         icon: new URL("/debridge.png", new URL(req.url).origin).toString(),
-        label: "Enter your 3 lottery numbers",
-        title: "DASH Lottery",
-        description: "Every Friday buy a ticket to win the Jackpot Select for 3 numbers for the Lottery. Enter the numbers between 0 and 20. For example, you could select: 2,14,7",
+        label: "Enter the amount you want to bridge from sol to eth",
+        title: "DEBRIDGE SOL TO ETH",
+        description: "Connect your Wallet, then type the amount that you want to bridge. After this the final step is to paste the ethereum address and click on the bridge button. ",
         links: {
             actions: [
               {
-                href: `/api/actions/memo/numbers`,
-                label: 'Buy Lottery',
+                href: `/api/actions/bridge`,
+                label: 'Bridge Assets',
                 parameters: [
+                    {
+                        name: "bridge",
+                        label: "Enter the amount that you want to bridge"
+                      },
                   {
-                    name: "first_number",
-                    label: 'Enter the first number',
+                    name: "ethereum_address",
+                    label: 'Enter your Ethereum Address',
                   },
-                  {
-                    name: "second_numbers",
-                    label: 'Enter the second number',
-                  },
-                  {
-                    name: "thrid_number",
-                    label: "Enter the thrid number"
-                  }
+                  
                 ],
               },
             ]
