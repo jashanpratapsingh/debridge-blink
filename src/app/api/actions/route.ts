@@ -41,3 +41,49 @@ export const GET = (req: Request) => {
 }
 
 export const OPTIONS = GET;
+
+//This is where the post request for the action is being executed
+export const POST = async (req: Request) => {
+  try {
+      const body: ActionPostRequest = await req.json();
+
+      let account: PublicKey;
+      try{
+          account = new PublicKey(body.account);
+      } catch(err) {
+          return new Response("Invalid account provided", {
+              status: 400,
+              headers: ACTIONS_CORS_HEADERS,
+          })
+      }
+
+      const transaction = new Transaction();
+
+      transaction.add(
+
+          ComputeBudgetProgram.setComputeUnitPrice({
+              microLamports: 1000,
+          }),
+          new TransactionInstruction({
+              programId: new PublicKey(MEMO_PROGRAM_ID),
+              data: Buffer.from("this is a simple memo message", "utf8"),
+              keys: []
+          })
+      );
+
+      transaction.feePayer = account;
+
+      const connection = new Connection(clusterApiUrl("devnet"));
+      transaction.recentBlockhash = (await connection.getLatestBlockhash()).blockhash;
+
+      const payload: ActionPostResponse = await createPostResponse({
+          fields: {
+              transaction,
+          },
+      })
+
+      return Response.json(payload, { headers: ACTIONS_CORS_HEADERS});
+  } catch (err) {
+      return Response.json("An unknown error has occured", {status: 400})
+  }
+}
