@@ -9,7 +9,7 @@ import { clusterApiUrl, ComputeBudgetProgram, Connection, PublicKey, Transaction
 export const GET = (req: Request) => {
 
     const payload : ActionGetResponse = {
-        icon: new URL("/dash_lottery.png", new URL(req.url).origin).toString(),
+        icon: new URL("/debridge.png", new URL(req.url).origin).toString(),
         label: "Enter your 3 lottery numbers",
         title: "DASH Lottery",
         description: "Every Friday buy a ticket to win the Jackpot Select for 3 numbers for the Lottery. Enter the numbers between 0 and 20. For example, you could select: 2,14,7",
