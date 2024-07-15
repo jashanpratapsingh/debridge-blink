@@ -9,7 +9,7 @@ import { clusterApiUrl, ComputeBudgetProgram, Connection, PublicKey, Transaction
 export const GET = (req: Request) => {
 
     const payload : ActionGetResponse = {
-        icon: new URL("/debridge.png", new URL(req.url).origin).toString(),
+        icon: new URL("/debridge.jpeg", new URL(req.url).origin).toString(),
         label: "Enter the amount you want to bridge from sol to eth",
         title: "DEBRIDGE SOL TO ETH",
         description: "Connect your Wallet, then type the amount that you want to bridge. After this the final step is to paste the ethereum address and click on the bridge button. ",
